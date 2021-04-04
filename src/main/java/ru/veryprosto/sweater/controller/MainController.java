@@ -1,6 +1,8 @@
 package ru.veryprosto.sweater.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import ru.veryprosto.sweater.domain.Message;
+import ru.veryprosto.sweater.domain.User;
 import ru.veryprosto.sweater.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +32,11 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag, Map<String, Object> model) {
+        Message message = new Message(text, tag, user);
 
         messageRepo.save(message);
 

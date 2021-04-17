@@ -12,7 +12,8 @@ import ru.veryprosto.sweater.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) //аннотация для того чтобы работала аннотация @PreAuthorize("hasAuthority('ADMIN')") в контроллере
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+//аннотация для того чтобы работала аннотация @PreAuthorize("hasAuthority('ADMIN')") в контроллере
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -23,8 +24,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()//это значит что доступ на главную страницу без авторизации
-                .anyRequest().authenticated() //а на остальные требуется аунтефикация
+                .antMatchers("/", "/registration", "/static/**").permitAll()//это значит что доступ на главную страницу без авторизации, статик добавил для того чтобы стили раздавались без авторизации
+                .anyRequest().authenticated() //а на остальные требуется аунтификация
                 .and()
                 .formLogin()//включаем форму авторизации - логин
                 .loginPage("/login")//эта форма находится на этой странице

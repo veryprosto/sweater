@@ -17,6 +17,9 @@ public class User implements UserDetails {
     private String password;
     private boolean active;
 
+    private String email;
+    private String activationCode;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER) //эта аннотация позволяет быстро создать таблицу для enum. fetch EAGER - жадная инициализация - все сразу подгружаются
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name="user_id"))//создаем таблицу  которая будет соединяться с таблицей usr через поле  user_id
     @Enumerated(EnumType.STRING)//храним enum в виде строки
@@ -89,5 +92,21 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
     }
 }

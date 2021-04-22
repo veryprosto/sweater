@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/static/**").permitAll()//это значит что доступ на главную страницу без авторизации, статик добавил для того чтобы стили раздавались без авторизации
+                .antMatchers("/", "/registration", "/static/**", "/activate/*").permitAll()//это значит что доступ на главную страницу без авторизации, статик добавил для того чтобы стили раздавались без авторизации
                 .anyRequest().authenticated() //а на остальные требуется аунтификация
                 .and()
                 .formLogin()//включаем форму авторизации - логин
